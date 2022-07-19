@@ -1,10 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NativeBaseProvider, StatusBar } from 'native-base';
+
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+
+import { THEME } from './src/assets/styles/theme';
+import { Loading } from './src/components/Loading';
 import { SignIn } from './src/screens/SignIn';
 
 export default function App() {
+  
+  const[fontsLoaded] = useFonts({
+    Roboto_400Regular, Roboto_700Bold
+  });
+
   return (
-    <SignIn />
+    <NativeBaseProvider theme={THEME}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      {fontsLoaded ? <SignIn /> : <Loading />}
+    </NativeBaseProvider>
   );
 };
